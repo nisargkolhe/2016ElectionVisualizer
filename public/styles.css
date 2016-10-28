@@ -1,0 +1,124 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000000 url(/img/loading.gif) center center no-repeat;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  height: 100%;
+}
+
+a {
+  color: #aaa;
+  text-decoration: none;
+  transition: all 0.5s ease;
+
+}
+a:hover {
+  color: #fff;
+  transition: all 0.5s ease;
+}
+
+#info {
+  font-size: 11px;
+  position: absolute;
+  bottom: 5px;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+  right: 10px;
+  padding: 10px;
+}
+
+#leftTop {
+  position: absolute;
+  top: 1em;
+  width: 270px;
+  left: 1em;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+  padding: 10px;
+  bottom: 1em;
+  overflow: auto;
+}
+
+#leftTop h1{
+  font-family: Georgia;
+  font-size: 4em;
+  line-height: 1em;
+}
+
+#leftTop p{
+  font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1.2em;
+}
+
+.tweets{
+  position: relative;
+  margin-top: 2em;
+  overflow: auto;
+  height: auto;
+  color: #e0e0e0;
+  padding-left: 1em;
+  border-left: solid;
+  border-left-color: red;
+}
+
+.tweets p{
+  font-size: 0.8em !important;
+  transition: all 0.5s ease;
+}
+
+.tweets p:first-of-type {
+  color: #fff;
+  font-size: 1em !important;
+  transition: all 0.5s ease;
+}
+
+#rightTop{
+  position: absolute;
+  top: 2em;  
+  right: 2em;
+  width: auto;
+  height: auto;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+  padding: 1em;
+}
+
+#rightTop h2{
+  font-family: Georgia;
+}
+
+#legends{
+  font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1.2em;
+}
+
+#redBox{
+  position: relative;
+  height: 1em;
+  width: 1em;
+  background-color: #E91D0E;
+  margin-top: 1em;
+}
+
+#blueBox{
+  position: relative;
+  height: 1em;
+  width: 1em;
+  background-color: #00a9e0;
+  margin-top: 1em;
+}
+
+#whiteBox{
+  position: relative;
+  height: 1em;
+  width: 1em;
+  background-color: #fff;
+  margin-top: 1em;
+}

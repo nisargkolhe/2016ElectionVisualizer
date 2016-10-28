@@ -1,0 +1,45 @@
+<script src='http://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js'></script>
+<script src='js/globe.js'></script>
+<script src='http://localhost:3000/socket.io/socket.io.js'></script>
+<script type='text/javascript' src='http://code.jquery.com/jquery-1.10.1.min.js'></script>
+   
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>2016 Election Visualizer by Nisarg Kolhe</title>
+    <meta name="description" content="Realtime visualization of people tweeting about Donald Trump and Hillary Clinton.">
+    <link rel="stylesheet" href="styles.css"/>
+  </head>
+  <body>
+    <main>
+      <div id='globe'></div>
+    <div id="info">
+      Created by <strong><a href="http://nisarg.me">Nisarg Kolhe</a></strong> with <strong><a href="http://www.chromeexperiments.com/globe">WebGL Globe</a></strong>
+    </div>
+
+    <div id="leftTop">
+      <h1>2016 Election Visualizer</h1>
+      <p>Realtime visualization of people tweeting about Donald Trump and Hillary Clinton.</p>
+      <p>Line height is propotional to user's followers, and hence its reach.</p>
+      <div class="tweets">
+      
+      </div>
+    </div>
+
+    <div id="rightTop">
+      <h2>Legend</h2>
+      <div id="legends">
+        <div id="redBox"></div>Donald Trump
+        <div id="blueBox"></div>Hillary Clinton
+        <div id="whiteBox"></div>Both
+      </div>
+
+    </div>
+
+    </main>
+    <script type='text/javascript' src="js/main.js"></script>
+  </body>
+</html>
