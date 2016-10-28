@@ -139,5 +139,15 @@ a:hover {
     margin: 1em;
     right: 0;
   }
+
+  #leftTop h1 {
+    font-size: 3em;
+  }
+
+  #info {
+    position: relative;
+    right: 0;
+    margin: 1em;
+  }
   
 }
