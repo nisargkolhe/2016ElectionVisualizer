@@ -141,7 +141,6 @@ io.sockets.on("connection", function(socket) {
 
 				stream.on('end', function (response) {
 		            console.log("Twitter stream end");
-		            stream.start();
 				});
 
 		        stream.on('destroy', function (response) {
