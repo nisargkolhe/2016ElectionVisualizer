@@ -125,6 +125,7 @@ io.sockets.on("connection", function(socket) {
 
 				stream.on('end', function (response) {
 		            console.log("Twitter stream end");
+		            if(lkd.ldd==""){}
 				});
 
 		        stream.on('destroy', function (response) {
