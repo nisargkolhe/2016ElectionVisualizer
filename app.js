@@ -63,8 +63,10 @@ io.sockets.on("connection", function(socket) {
                         var text = "" + data.text;
 
                         //Set block size according to user's followers
-                        if(data.user.followers_count > max)
-                        	max = data.user.followers_count;
+                        if(data.user!==undefined || data.user!==null){
+                        	if(data.user.followers_count > max)
+                        		max = data.user.followers_count;
+                    	}
                         tweetObj.size = 10 + 100 * (data.user.followers_count/max);
 					    tweetObj.text = text;
 					    tweetObj.user = data.user.screen_name;
