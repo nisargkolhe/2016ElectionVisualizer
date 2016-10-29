@@ -67,7 +67,7 @@ io.sockets.on("connection", function(socket) {
                         	//if(data.user.followers_count > max)
                         		//max = data.user.followers_count;
                     	}
-                        tweetObj.size = 10 + 100 * (data.user.followers_count/max);
+                        //tweetObj.size = 10 + 100 * (data.user.followers_count/max);
 					    tweetObj.text = text;
 					    tweetObj.user = data.user.screen_name;
                         
