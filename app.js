@@ -57,19 +57,15 @@ io.sockets.on("connection", function(socket) {
                         	lon: "",
                         	size: 0,
                         	text: "",
-                        	user: ""
+                        	user: "",
+                        	data: data
                         };
 
                         var text = "" + data.text;
                         //console.log(data);
                         //Set block size according to user's followers
-                    	if(data.user.followers_count > max)
-                    		max = data.user.followers_count;
-                    	
-                        tweetObj.size = 10 + 100 * (data.user.followers_count/max);
-					    tweetObj.text = text;
-					    tweetObj.user = data.user.screen_name;
                         
+
                         //Decide color if the tweet is democratic or republic
                         var jsonString = JSON.stringify(data);
                         if((jsonString.toLowerCase().indexOf("rump") !== -1 || jsonString.toLowerCase().indexOf("onald") !== -1) && (jsonString.toLowerCase().indexOf("linton") !== -1 || jsonString.toLowerCase().indexOf("illary") !== -1)){
@@ -84,10 +80,24 @@ io.sockets.on("connection", function(socket) {
 						if(data.coordinates){
 		                	tweetObj.lat = data.coordinates.coordinates[0];
 		                	tweetObj.lon = data.coordinates.coordinates[1];
+		                	if(data.user.followers_count > max)
+	                    		max = data.user.followers_count;
+	                    	
+	                        tweetObj.size = 10 + 100 * (data.user.followers_count/max);
+						    tweetObj.text = text;
+						    tweetObj.user = data.user.screen_name;
 		                	socket.broadcast.emit("new tweet", tweetObj);
                         	socket.emit("new tweet", tweetObj);
 		                }
 		                else if(data.place !== undefined && data.place !== null){ //if no coordinate is provided use Google's Geocoding API
+	                    	if(data.user.followers_count > max)
+	                    		max = data.user.followers_count;
+	                    	
+	                        tweetObj.size = 10 + 100 * (data.user.followers_count/max);
+						    tweetObj.text = text;
+						    tweetObj.user = data.user.screen_name;
+
+
 		                	var params = {
 								'key': process.env.GOOGLE_MAPS_GEOCODING_KEY,
 								'address': data.place.full_name
