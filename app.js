@@ -115,6 +115,9 @@ io.sockets.on("connection", function(socket) {
 										tweetObj.lon = JSON.parse(response.body).results[0].geometry.location.lng;
 										socket.broadcast.emit("new tweet", tweetObj);
 	                        			socket.emit("new tweet", tweetObj);
+                        			} else{
+                        				socket.broadcast.emit("new tweet", JSON.parse(response.body));
+	                        			socket.emit("new tweet", JSON.parse(response.body));
                         			}
 								}
 							});
@@ -136,6 +139,7 @@ io.sockets.on("connection", function(socket) {
 
 				stream.on('end', function (response) {
 		            console.log("Twitter stream end");
+		            stream.start();
 				});
 
 		        stream.on('destroy', function (response) {
