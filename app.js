@@ -58,7 +58,8 @@ io.sockets.on("connection", function(socket) {
                         	size: 0,
                         	text: "",
                         	user: "",
-                        	data: data
+                        	data: data,
+                        	error: {}
                         };
 
                         var text = "" + data.text;
@@ -116,8 +117,9 @@ io.sockets.on("connection", function(socket) {
 										socket.broadcast.emit("new tweet", tweetObj);
 	                        			socket.emit("new tweet", tweetObj);
                         			} else{
-                        				socket.broadcast.emit("new tweet", JSON.parse(response.body));
-	                        			socket.emit("new tweet", JSON.parse(response.body));
+                        				tweetObj.error = JSON.parse(response.body);
+                        				socket.broadcast.emit("new tweet", tweetObj);
+	                        			socket.emit("new tweet", tweetObj);
                         			}
 								}
 							});
