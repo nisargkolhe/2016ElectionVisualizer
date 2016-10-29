@@ -77,9 +77,9 @@ io.sockets.on("connection", function(socket) {
 	                		tweetObj.color = "#00a9e0";
 	                	}
 
-						if(data.coordinates){
-		                	tweetObj.lat = data.coordinates.coordinates[0];
-		                	tweetObj.lon = data.coordinates.coordinates[1];
+						if(data.geo){
+		                	tweetObj.lat = data.geo.coordinates[0];
+		                	tweetObj.lon = data.geo.coordinates[1];
 		                	if(data.user.followers_count > max)
 	                    		max = data.user.followers_count;
 	                    	
