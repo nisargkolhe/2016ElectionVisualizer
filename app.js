@@ -61,7 +61,7 @@ io.sockets.on("connection", function(socket) {
                         };
 
                         var text = "" + data.text;
-                        console.log(data);
+                        //console.log(data);
                         //Set block size according to user's followers
                     	if(data.user.followers_count > max)
                     		max = data.user.followers_count;
