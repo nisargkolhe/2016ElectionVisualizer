@@ -73,11 +73,11 @@ io.sockets.on("connection", function(socket) {
                         tweetObj.color = getTweetColor(jsonString.toLowerCase());
 
                         if(data.quoted_status){
-                        	var quote = {
+                        	var quoteObj = {
                         		text: data.quoted_status.text,
                         		color: getTweetColor(JSON.stringify(data.quoted_status.text).toLowerCase())
                         	}
-                        	tweetObj.quote = quote;
+                        	tweetObj.quote = quoteObj;
                         }
 
                         if (data.geo) {
