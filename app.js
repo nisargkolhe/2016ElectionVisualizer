@@ -59,6 +59,7 @@ io.sockets.on("connection", function(socket) {
                             text: "",
                             user: "",
                             data: data,
+                            quote: {},
                             error: {}
                         };
 
@@ -68,15 +69,16 @@ io.sockets.on("connection", function(socket) {
 
 
                         //Decide color if the tweet is democratic or republic
-                        var jsonString = JSON.stringify(data);
+                        var jsonString = JSON.stringify(data.text);
                         tweetObj.color = getTweetColor(jsonString.toLowerCase());
-                        /*if ((jsonString.toLowerCase().indexOf("rump") !== -1 || jsonString.toLowerCase().indexOf("onald") !== -1) && (jsonString.toLowerCase().indexOf("linton") !== -1 || jsonString.toLowerCase().indexOf("illary") !== -1)) {
-                            tweetObj.color = "#FFFFFF";
-                        } else if (jsonString.toLowerCase().indexOf("rump") !== -1 || jsonString.toLowerCase().indexOf("onald") !== -1) {
-                            tweetObj.color = "#E91D0E";
-                        } else if (jsonString.toLowerCase().indexOf("linton") !== -1 || jsonString.toLowerCase().indexOf("illary") !== -1) {
-                            tweetObj.color = "#00a9e0";
-                        }*/
+
+                        if(data.quoted_status){
+                        	var quote = {
+                        		text: data.quoted_status.text,
+                        		color: getTweetColor(JSON.stringify(data.quoted_status.text).toLowerCase())
+                        	}
+                        	tweetObj.quote = quote;
+                        }
 
                         if (data.geo) {
                             tweetObj.lat = data.geo.coordinates[0];
