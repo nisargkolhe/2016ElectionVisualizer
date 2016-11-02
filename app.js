@@ -74,8 +74,8 @@ io.sockets.on("connection", function(socket) {
 
                         if(data.quoted_status){
                         	var quoteObj = {
-                        		text: data.quoted_status.text,
-                        		color: getTweetColor(JSON.stringify(data.quoted_status.text).toLowerCase())
+                        		qouteText: data.quoted_status.text,
+                        		qouteColor: getTweetColor(JSON.stringify(data.quoted_status.text).toLowerCase())
                         	}
                         	tweetObj.quote = quoteObj;
                         }
