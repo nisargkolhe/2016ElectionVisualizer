@@ -63,13 +63,13 @@ io.sockets.on("connection", function(socket) {
                         };
 
                         var text = "" + data.text;
-                        //console.log(data);
+                        console.log(data);
                         //Set block size according to user's followers
 
 
                         //Decide color if the tweet is democratic or republic
                         var jsonString = JSON.stringify(data);
-                        tweetObj.color = getTweetColor(jsonString.toLowerCase())''
+                        tweetObj.color = getTweetColor(jsonString.toLowerCase());
                         /*if ((jsonString.toLowerCase().indexOf("rump") !== -1 || jsonString.toLowerCase().indexOf("onald") !== -1) && (jsonString.toLowerCase().indexOf("linton") !== -1 || jsonString.toLowerCase().indexOf("illary") !== -1)) {
                             tweetObj.color = "#FFFFFF";
                         } else if (jsonString.toLowerCase().indexOf("rump") !== -1 || jsonString.toLowerCase().indexOf("onald") !== -1) {
@@ -171,11 +171,11 @@ io.sockets.on("connection", function(socket) {
     });
 });
 
-function getTweetColor(String s){
+function getTweetColor(s){
 	if ((s.indexOf("trump") !== -1 || s.indexOf("donald") !== -1) && (s.indexOf("clinton") !== -1 || s.indexOf("hillary") !== -1)) {
-        return = "#FFFFFF";
+        return "#FFFFFF";
     } else if (s.indexOf("trump") !== -1 || s.indexOf("donald") !== -1) {
-        return = "#E91D0E";
+        return "#E91D0E";
     } else if (s.indexOf("clinton") !== -1 || s.indexOf("hillary") !== -1) {
         return "#00a9e0";
     }
