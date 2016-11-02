@@ -72,13 +72,19 @@ io.sockets.on("connection", function(socket) {
                         var jsonString = JSON.stringify(data.text);
                         tweetObj.color = getTweetColor(jsonString.toLowerCase());
 
+                        var quoteObj = {
+                        		qouteText: "",
+                        		qouteColor: ""
+                        }
+
                         if(data.quoted_status){
-                        	var quoteObj = {
+                        	quoteObj = {
                         		qouteText: data.quoted_status.text,
                         		qouteColor: getTweetColor(JSON.stringify(data.quoted_status.text).toLowerCase())
                         	}
-                        	tweetObj.quote = quoteObj;
                         }
+
+                        tweetObj.quote = quoteObj;
 
                         if (data.geo) {
                             tweetObj.lat = data.geo.coordinates[0];
