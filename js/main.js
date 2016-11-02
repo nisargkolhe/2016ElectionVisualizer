@@ -23,7 +23,7 @@ $(function() {
 
 
     if (io !== undefined) {
-        _socket = io.connect("http://electionvisualizer.herokuapp.com/");
+        _socket = io.connect("http://localhost:3000/");
 
         // This will listen to the "new tweet" signal everytime
         // there's a new tweet incoming into the stream
