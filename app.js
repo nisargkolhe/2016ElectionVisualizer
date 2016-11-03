@@ -59,12 +59,15 @@ io.sockets.on("connection", function(socket) {
                             text: "",
                             user: "",
                             data: data,
-                            quote: {},
+                            quote: {
+                            	qouteText: "",
+                        		qouteColor: ""
+                        	},
                             error: {}
                         };
 
                         var text = "" + data.text;
-                        console.log(data);
+                        //console.log(data);
                         //Set block size according to user's followers
 
 
@@ -72,19 +75,15 @@ io.sockets.on("connection", function(socket) {
                         var jsonString = JSON.stringify(data.text);
                         tweetObj.color = getTweetColor(jsonString.toLowerCase());
 
-                        var quoteObj = {
-                        		qouteText: "",
-                        		qouteColor: ""
-                        }
+                        if(data.is_quote_status){
+                        	var quote_text = data.quoted_status.text;
+                        	var quote_color = getTweetColor(quote_text.toLowerCase());
+                        	if(!tweetObj.color){tweetObj.color = quote_color;}
+                    		tweetObj.quote.qouteText = quote_text;
+                    		tweetObj.quote.qouteColor = getTweetColor(quote_text.toLowerCase());
+                    		console.log("quote : "+quote_color);
 
-                        if(data.quoted_status){
-                        	quoteObj = {
-                        		qouteText: data.quoted_status.text,
-                        		qouteColor: getTweetColor(JSON.stringify(data.quoted_status.text).toLowerCase())
-                        	}
                         }
-
-                        tweetObj.quote = quoteObj;
 
                         if (data.geo) {
                             tweetObj.lat = data.geo.coordinates[0];
@@ -186,6 +185,8 @@ function getTweetColor(s){
         return "#E91D0E";
     } else if (s.indexOf("clinton") !== -1 || s.indexOf("hillary") !== -1) {
         return "#00a9e0";
+    } else{
+    	return false;
     }
 }
 
