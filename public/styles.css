@@ -79,6 +79,12 @@ a:hover {
   transition: all 0.5s ease;
 }
 
+.quote{
+    position: relative;
+    border-left: solid;
+    border-left-color: white;
+}
+
 #rightTop{
   position: absolute;
   top: 2em;  

@@ -6,7 +6,9 @@ var express = require('express'),
     theport = process.env.PORT || 3000,
     Twitter = require("twitter"),
     request = require('request'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser')
+    sleep = require('sleep'),
+    isEmptyArray = require('is-empty-array');
 
 // listens to the port specified
 server.listen(theport);
@@ -106,20 +108,21 @@ io.sockets.on("connection", function(socket) {
 
 
                             var params = {
-                                'key': process.env.GOOGLE_MAPS_GEOCODING_KEY,
-                                'address': data.place.full_name
+                                'access_token': process.env.MAPBOX_ACCESS_TOKEN,
+                                'limit': 1
                             };
                             var options = {
-                                url: 'https://maps.googleapis.com/maps/api/geocode/json',
+                                url: 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+data.place.full_name+'.json',
                                 qs: params
                             };
                             request.get(options, function(error, response, body) {
                                 if (error)
                                     console.log(error);
                                 else {
-                                    if (JSON.parse(response.body).status == "OK") {
-                                        tweetObj.lat = JSON.parse(response.body).results[0].geometry.location.lat;
-                                        tweetObj.lon = JSON.parse(response.body).results[0].geometry.location.lng;
+                                    var obj = JSON.parse(response.body);
+                                    if (!isEmptyArray(obj.features)) {
+                                        tweetObj.lat = obj.features[0].center[1];
+                                        tweetObj.lon = obj.features[0].center[0];
                                         socket.broadcast.emit("new tweet", tweetObj);
                                         socket.emit("new tweet", tweetObj);
                                     } else {
@@ -129,7 +132,7 @@ io.sockets.on("connection", function(socket) {
                                     }
                                 }
                             });
-
+                            sleep.usleep(100000);
                         }
 
                     } else {
