@@ -90,6 +90,7 @@ a:hover {
   top: 2em;  
   right: 2em;
   width: auto;
+  max-width: 200px;
   height: auto;
   background-color: rgba(0,0,0,0.2);
   border-radius: 3px;

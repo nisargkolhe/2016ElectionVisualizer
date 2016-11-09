@@ -83,7 +83,7 @@ io.sockets.on("connection", function(socket) {
                         	if(!tweetObj.color){tweetObj.color = quote_color;}
                     		tweetObj.quote.qouteText = quote_text;
                     		tweetObj.quote.qouteColor = getTweetColor(quote_text.toLowerCase());
-                    		console.log("quote : "+quote_color);
+                    		//console.log("quote : "+quote_color);
 
                         }
 
@@ -143,8 +143,8 @@ io.sockets.on("connection", function(socket) {
                     }
                 });
                 stream.on('error', function(error) {
-                    console.log("ERROR");
-                    console.log(error);
+                    //console.log("ERROR");
+                    //console.log(error);
                 });
 
                 stream.on('end', function(response) {
