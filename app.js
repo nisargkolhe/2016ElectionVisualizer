@@ -51,15 +51,13 @@ io.sockets.on("connection", function(socket) {
                 var max = 100;
                 stream.on("data", function(data) {
                     // only broadcast when users are online
-                    if (users.length > 0) {
+                    if (users.length > 0 && data.user) {
 
                         var tweetObj = {
                             color: "#FFFFFF",
                             lat: "",
                             lon: "",
                             size: 0,
-                            text: "",
-                            user: "",
                             data: data,
                             quote: {
                             	qouteText: "",
@@ -69,44 +67,32 @@ io.sockets.on("connection", function(socket) {
                         };
 
                         var text = "" + data.text;
-                        //console.log(data);
-                        //Set block size according to user's followers
 
+                        //Set block size according to user's followers
+                        if (data.user.followers_count > max)
+                                max = data.user.followers_count;
+                        tweetObj.size = 10 + 100 * (data.user.followers_count / max);
+                        tweetObj.text = text;
+                        tweetObj.user = data.user.screen_name;
 
                         //Decide color if the tweet is democratic or republic
                         var jsonString = JSON.stringify(data.text);
                         tweetObj.color = getTweetColor(jsonString.toLowerCase());
 
-                        if(data.is_quote_status){
+                        if(data.is_quote_status){ //show quoted tweet if exists
                         	var quote_text = data.quoted_status.text;
                         	var quote_color = getTweetColor(quote_text.toLowerCase());
                         	if(!tweetObj.color){tweetObj.color = quote_color;}
                     		tweetObj.quote.qouteText = quote_text;
                     		tweetObj.quote.qouteColor = getTweetColor(quote_text.toLowerCase());
-                    		//console.log("quote : "+quote_color);
-
                         }
 
                         if (data.geo) {
                             tweetObj.lat = data.geo.coordinates[0];
                             tweetObj.lon = data.geo.coordinates[1];
-                            if (data.user.followers_count > max)
-                                max = data.user.followers_count;
-
-                            tweetObj.size = 10 + 100 * (data.user.followers_count / max);
-                            tweetObj.text = text;
-                            tweetObj.user = data.user.screen_name;
                             socket.broadcast.emit("new tweet", tweetObj);
                             socket.emit("new tweet", tweetObj);
-                        } else if (data.place !== undefined && data.place !== null) { //if no coordinate is provided use Google's Geocoding API
-                            if (data.user.followers_count > max)
-                                max = data.user.followers_count;
-
-                            tweetObj.size = 10 + 100 * (data.user.followers_count / max);
-                            tweetObj.text = text;
-                            tweetObj.user = data.user.screen_name;
-
-
+                        } else if (data.place !== undefined && data.place !== null) { //if no coordinate is provided use Mapbox's Geocoding API
                             var params = {
                                 'access_token': process.env.MAPBOX_ACCESS_TOKEN,
                                 'limit': 1
@@ -132,23 +118,24 @@ io.sockets.on("connection", function(socket) {
                                     }
                                 }
                             });
-                            sleep.usleep(100000);
+                            sleep.usleep(100000); //send only one request per second
                         }
 
                     } else {
-                        // If there are no users connected we destroy the stream.
+                        // If there are no users connected, destroy the stream.
                         console.log("destroying stream");
                         stream.destroy();
                         stream = null;
                     }
                 });
                 stream.on('error', function(error) {
-                    //console.log("ERROR");
-                    //console.log(error);
+                    console.log("on error");
+                    console.log(error);
                 });
 
                 stream.on('end', function(response) {
                     console.log("Twitter stream end");
+                    process.exit(1);
                 });
 
                 stream.on('destroy', function(response) {
@@ -158,8 +145,6 @@ io.sockets.on("connection", function(socket) {
                     console.log("Twitter stream disconnect" + response.disconnect);
                 });
             });
-
-
         }
     });
 
