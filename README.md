@@ -6,7 +6,7 @@ Realtime visualization of people tweeting about Donald Trump and/or Hillary Clin
 
 I use Twitter's Streaming API to get a stream of tweets matching the filters, use Google Map's Geocoding API if the coordinates aren't provided, and then use Socket.IO to send the data from the Node.JS server to the client web app running WebGL Globe.
 
-####Technologies Used:
+### Technologies Used:
 
   - Node.JS
   - Socket.IO
